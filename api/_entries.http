@@ -1,0 +1,13 @@
+@baseUrl = http://localhost:3000/api
+
+GET {{baseUrl}}/entries
+
+###
+
+POST {{baseUrl}}/entries
+Content-Type: application/json
+
+{
+  "text": "Another text",
+  "author": "John"
+}
