@@ -6,7 +6,7 @@ export default createGlobalStyle`
   }
 
   body {
-    margin: 0;
+    margin: 12px;
     font-family: sans-serif;
     font-size: 112.5%;
   }
