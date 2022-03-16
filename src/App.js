@@ -17,7 +17,7 @@ export default function App() {
   }, []);
 
   return (
-    <>
+    <Grid>
       <h1>Lean Coffee Board</h1>
       <EntryList role="list">
         {entries.map(({ text, author }, index) => (
@@ -27,7 +27,7 @@ export default function App() {
         ))}
       </EntryList>
       <EntryForm onSubmit={handleNewEntry} />
-    </>
+    </Grid>
   );
 
   async function handleNewEntry(text) {
@@ -47,9 +47,18 @@ export default function App() {
   }
 }
 
+const Grid = styled.div`
+  display: grid;
+  height: 100vh;
+  padding: 0 20px 12px;
+  grid-template-rows: auto 1fr auto;
+`;
+
 const EntryList = styled.ul`
   display: grid;
   gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-auto-rows: 100px;
   list-style: none;
   padding: 0;
 `;
