@@ -21,8 +21,8 @@ export default function App() {
       <h1>Lean Coffee Board</h1>
       <EntryList role="list">
         {entries
-          ? entries.map(({ text, author, _id }) => (
-              <li key={_id}>
+          ? entries.map(({ text, author, _id, tempId }) => (
+              <li key={_id ?? tempId}>
                 <Entry text={text} author={author} />
               </li>
             ))
@@ -36,6 +36,7 @@ export default function App() {
     const newEntry = {
       text,
       author: 'Anonymous',
+      tempId: Math.random(),
     };
 
     mutateEntries([...entries, newEntry], false);
