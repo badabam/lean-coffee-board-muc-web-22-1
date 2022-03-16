@@ -26,7 +26,7 @@ export default function App() {
                 <Entry text={text} author={author} />
               </li>
             ))
-          : '... loading ...'}
+          : '... loading! ...'}
       </EntryList>
       <EntryForm onSubmit={handleNewEntry} />
     </Grid>
