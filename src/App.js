@@ -1,11 +1,15 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import useSWR from 'swr';
 import Entry from './components/Entry';
 import EntryForm from './components/EntryForm';
+import LoginForm from './components/LoginForm.js';
 
 const fetcher = (...args) => fetch(...args).then(res => res.json());
 
 export default function App() {
+  const [name, setName] = useState('');
+
   const {
     data: entries,
     error: entriesError,
@@ -17,25 +21,33 @@ export default function App() {
   if (entriesError) return <h1>Sorry, could not fetch.</h1>;
 
   return (
-    <Grid>
-      <h1>Lean Coffee Board</h1>
-      <EntryList role="list">
-        {entries
-          ? entries.map(({ text, author, _id, tempId }) => (
-              <li key={_id ?? tempId}>
-                <Entry text={text} author={author} />
-              </li>
-            ))
-          : '... loading! ...'}
-      </EntryList>
-      <EntryForm onSubmit={handleNewEntry} />
-    </Grid>
+    <>
+      {name ? (
+        <BoardGrid>
+          <h1>Lean Coffee Board</h1>
+          <EntryList role="list">
+            {entries
+              ? entries.map(({ text, author, _id, tempId }) => (
+                  <li key={_id ?? tempId}>
+                    <Entry text={text} author={author} />
+                  </li>
+                ))
+              : '... loading! ...'}
+          </EntryList>
+          <EntryForm onSubmit={handleNewEntry} />
+        </BoardGrid>
+      ) : (
+        <LoginGrid>
+          <LoginForm onLogin={name => setName(name)} />
+        </LoginGrid>
+      )}
+    </>
   );
 
   async function handleNewEntry(text) {
     const newEntry = {
       text,
-      author: 'Anonymous',
+      author: name ?? 'Anonymous',
       tempId: Math.random(),
     };
 
@@ -53,18 +65,25 @@ export default function App() {
   }
 }
 
-const Grid = styled.div`
+const LoginGrid = styled.div`
   display: grid;
+  place-items: center;
   height: 100vh;
+`;
+
+const BoardGrid = styled.div`
+  display: grid;
   padding: 0 20px 12px;
   grid-template-rows: auto 1fr auto;
+  height: 100vh;
 `;
 
 const EntryList = styled.ul`
   display: grid;
   gap: 20px;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-auto-rows: 100px;
   list-style: none;
   padding: 0;
+  overflow-y: auto;
 `;
