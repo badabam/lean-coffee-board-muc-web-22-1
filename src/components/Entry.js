@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-export default function Entry({ text, author }) {
+export default function Entry({ text, author, color }) {
   return (
     <Card>
       {text}
-      <Author>{author}</Author>
+      <Author color={color}>{author}</Author>
     </Card>
   );
 }
@@ -24,5 +24,5 @@ const Author = styled.p`
   margin: 0;
   text-transform: uppercase;
   font-size: 1rem;
-  color: #999;
+  color: ${p => p.color ?? '#888'};
 `;

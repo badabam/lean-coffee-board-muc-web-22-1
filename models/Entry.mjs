@@ -2,11 +2,19 @@ import mongoose from 'mongoose';
 
 const schema = new mongoose.Schema(
   {
-    text: mongoose.SchemaTypes.String,
-    author: mongoose.SchemaTypes.String,
+    text: {
+      type: String,
+      required: true,
+    },
+    author: {
+      type: String,
+      required: true,
+    },
+    color: mongoose.SchemaTypes.String,
   },
   {
     versionKey: false,
+    timestamps: true,
   }
 );
 

@@ -19,7 +19,10 @@ describe('LoginForm', () => {
     const button = screen.getByRole('button', { name: 'Remember me' });
     userEvent.click(button);
 
-    expect(callback).toHaveBeenCalledWith('Jane Doe', '#cccccc');
+    expect(callback).toHaveBeenCalledWith({
+      name: 'Jane Doe',
+      color: '#cccccc',
+    });
   });
 
   it('does not call onLogin without name filled in', () => {
@@ -48,6 +51,9 @@ describe('LoginForm', () => {
     const button = screen.getByRole('button', { name: 'Remember me' });
     userEvent.click(button);
 
-    expect(callback).toHaveBeenCalledWith('Jane Doe', '#ff0033');
+    expect(callback).toHaveBeenCalledWith({
+      name: 'Jane Doe',
+      color: '#ff0033',
+    });
   });
 });

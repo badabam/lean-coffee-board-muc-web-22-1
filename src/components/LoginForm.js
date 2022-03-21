@@ -23,7 +23,7 @@ export default function LoginForm({ onLogin }) {
     const color = event.target.elements.color.value;
 
     if (name) {
-      onLogin(name, color);
+      onLogin({ name, color });
     }
   }
 }

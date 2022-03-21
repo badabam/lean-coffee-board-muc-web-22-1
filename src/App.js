@@ -8,7 +8,7 @@ import LoginForm from './components/LoginForm.js';
 const fetcher = (...args) => fetch(...args).then(res => res.json());
 
 export default function App() {
-  const [name, setName] = useState('');
+  const [user, setUser] = useState({});
 
   const {
     data: entries,
@@ -22,14 +22,14 @@ export default function App() {
 
   return (
     <>
-      {name ? (
+      {user.name ? (
         <BoardGrid>
           <h1>Lean Coffee Board</h1>
           <EntryList role="list">
             {entries
-              ? entries.map(({ text, author, _id, tempId }) => (
+              ? entries.map(({ text, author, color, _id, tempId }) => (
                   <li key={_id ?? tempId}>
-                    <Entry text={text} author={author} />
+                    <Entry text={text} author={author} color={color} />
                   </li>
                 ))
               : '... loading! ...'}
@@ -38,7 +38,7 @@ export default function App() {
         </BoardGrid>
       ) : (
         <LoginGrid>
-          <LoginForm onLogin={name => setName(name)} />
+          <LoginForm onLogin={setUser} />
         </LoginGrid>
       )}
     </>
@@ -47,7 +47,8 @@ export default function App() {
   async function handleNewEntry(text) {
     const newEntry = {
       text,
-      author: name ?? 'Anonymous',
+      author: user.name ?? 'Anonymous',
+      color: user.color,
       tempId: Math.random(),
     };
 
