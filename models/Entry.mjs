@@ -5,12 +5,16 @@ const schema = new mongoose.Schema(
     text: {
       type: String,
       required: true,
+      minlength: 3,
     },
     author: {
       type: String,
       required: true,
     },
-    color: mongoose.SchemaTypes.String,
+    color: {
+      type: String,
+      default: '#888',
+    },
   },
   {
     versionKey: false,
