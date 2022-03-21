@@ -17,3 +17,12 @@ Content-Type: application/json
   "text": "Another text",
   "author": "John"
 }
+
+### DELETE
+
+DELETE {{baseUrl}}/entries
+Content-Type: application/json
+
+{
+  "_id": "6238504239de179b59e7deb2"
+}

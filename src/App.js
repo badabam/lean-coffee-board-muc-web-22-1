@@ -35,6 +35,7 @@ export default function App() {
                         author={author}
                         color={color}
                         createdAt={createdAt}
+                        onDelete={() => handleDelete(_id)}
                       />
                     </li>
                   )
@@ -67,6 +68,21 @@ export default function App() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(newEntry),
+    });
+
+    mutateEntries();
+  }
+
+  async function handleDelete(_id) {
+    const filteredEntries = entries.filter(entry => entry._id !== _id);
+    mutateEntries(filteredEntries, false);
+
+    await fetch('/api/entries', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ _id }),
     });
 
     mutateEntries();

@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import dayjs from 'dayjs';
 
-export default function Entry({ text, author, color, createdAt }) {
+export default function Entry({ text, author, color, createdAt, onDelete }) {
   return (
     <Card>
+      <button onClick={onDelete}>Delete</button>
       <small>{dayjs(createdAt).format('DD.MM.YYYY HH:MM')}</small>
       <br />
       {text}

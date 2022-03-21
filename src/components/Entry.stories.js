@@ -3,6 +3,13 @@ import Entry from './Entry.js';
 export default {
   title: 'components/Entry',
   component: Entry,
+  decorators: [
+    Story => (
+      <div style={{ height: '150px' }}>
+        <Story />
+      </div>
+    ),
+  ],
 };
 
 const Template = args => <Entry {...args} />;
