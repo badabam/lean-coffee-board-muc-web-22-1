@@ -27,11 +27,18 @@ export default function App() {
           <h1>Lean Coffee Board</h1>
           <EntryList role="list">
             {entries
-              ? entries.map(({ text, author, color, _id, tempId }) => (
-                  <li key={_id ?? tempId}>
-                    <Entry text={text} author={author} color={color} />
-                  </li>
-                ))
+              ? entries.map(
+                  ({ text, author, color, createdAt, _id, tempId }) => (
+                    <li key={_id ?? tempId}>
+                      <Entry
+                        text={text}
+                        author={author}
+                        color={color}
+                        createdAt={createdAt}
+                      />
+                    </li>
+                  )
+                )
               : '... loading! ...'}
           </EntryList>
           <EntryForm onSubmit={handleNewEntry} />

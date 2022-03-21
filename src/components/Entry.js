@@ -1,8 +1,11 @@
 import styled from 'styled-components';
+import dayjs from 'dayjs';
 
-export default function Entry({ text, author, color }) {
+export default function Entry({ text, author, color, createdAt }) {
   return (
     <Card>
+      <small>{dayjs(createdAt).format('DD.MM.YYYY HH:MM')}</small>
+      <br />
       {text}
       <Author color={color}>{author}</Author>
     </Card>
