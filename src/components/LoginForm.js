@@ -10,14 +10,21 @@ export default function LoginForm({ onLogin }) {
       <label id="name-label" htmlFor="name">
         What is your name?
       </label>
-      <input placeholder="Write here ..." id="name" name="name" />
-      <button>Save name</button>
+      <input required placeholder="Write here ..." id="name" name="name" />
+      <label htmlFor="color">Please select a color</label>
+      <input id="color" name="color" type="color" defaultValue="#cccccc" />
+      <button>Remember me</button>
     </Form>
   );
 
   function handleLogin(event) {
     event.preventDefault();
-    onLogin(event.target.elements.name.value);
+    const name = event.target.elements.name.value;
+    const color = event.target.elements.color.value;
+
+    if (name) {
+      onLogin(name, color);
+    }
   }
 }
 
