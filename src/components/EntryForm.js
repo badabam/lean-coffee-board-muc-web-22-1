@@ -3,7 +3,11 @@ import ScreenReaderOnly from './ScreenReaderOnly.js';
 
 export default function EntryForm({ onSubmit }) {
   return (
-    <Form onSubmit={handleSubmit} aria-labelledby="entry-form-name">
+    <Form
+      onSubmit={handleSubmit}
+      aria-labelledby="entry-form-name"
+      autoComplete="off"
+    >
       <label htmlFor="text">
         <ScreenReaderOnly>Entry text</ScreenReaderOnly>
       </label>
