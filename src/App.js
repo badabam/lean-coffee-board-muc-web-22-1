@@ -31,6 +31,7 @@ export default function App() {
                   ({ text, author, color, createdAt, _id, tempId }) => (
                     <li key={_id ?? tempId}>
                       <Entry
+                        _id={_id}
                         text={text}
                         author={author}
                         color={color}
@@ -55,7 +56,7 @@ export default function App() {
   async function handleNewEntry(text) {
     const newEntry = {
       text,
-      author: user.name ?? 'Anonymous',
+      author: user.name,
       color: user.color,
       tempId: Math.random(),
     };

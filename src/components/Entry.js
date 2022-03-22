@@ -1,17 +1,37 @@
 import dayjs from 'dayjs';
 import { AiOutlineClockCircle, AiOutlineDelete } from 'react-icons/ai';
 import styled from 'styled-components';
+import ScreenReaderOnly from './ScreenReaderOnly.js';
 
-export default function Entry({ text, author, color, createdAt, onDelete }) {
+export default function Entry({
+  _id,
+  text,
+  author,
+  color,
+  createdAt,
+  onDelete,
+  onCheck,
+  isChecked,
+}) {
   return (
     <Card>
-      <small>
-        <AiOutlineClockCircle style={{ verticalAlign: 'bottom' }} />{' '}
-        {createdAt
-          ? dayjs(createdAt).format('DD.MM.YYYY HH:mm')
-          : 'just created'}
-      </small>
-      <br />
+      <FlexBetween>
+        <small>
+          <AiOutlineClockCircle style={{ verticalAlign: 'bottom' }} />{' '}
+          {createdAt
+            ? dayjs(createdAt).format('DD.MM.YYYY HH:mm')
+            : 'just created'}
+        </small>
+        <label htmlFor={'mark-done-' + _id}>
+          <ScreenReaderOnly>Mark as done</ScreenReaderOnly>
+        </label>
+        <input
+          checked={isChecked}
+          onChange={onCheck}
+          id={'mark-done-' + _id}
+          type="checkbox"
+        />
+      </FlexBetween>
       {text}
       <FlexBetween>
         <Author color={color}>— {author}</Author>
@@ -39,7 +59,12 @@ const FlexBetween = styled.div`
 `;
 
 const TrashButton = styled.button.attrs(() => ({
-  children: <AiOutlineDelete />,
+  children: (
+    <>
+      <ScreenReaderOnly>Delete</ScreenReaderOnly>
+      <AiOutlineDelete />
+    </>
+  ),
 }))`
   border: none;
   background: transparent;
