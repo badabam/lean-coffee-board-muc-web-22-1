@@ -1,14 +1,22 @@
 import styled from 'styled-components';
 import dayjs from 'dayjs';
+import { IconContext } from 'react-icons';
+import { BiTrash } from 'react-icons/bi';
 
 export default function Entry({ text, author, color, createdAt, onDelete }) {
   return (
     <Card>
-      <button onClick={onDelete}>Delete</button>
-      <small>{dayjs(createdAt).format('DD.MM.YYYY HH:MM')}</small>
+      <small>
+        {createdAt
+          ? dayjs(createdAt).format('DD.MM.YYYY HH:mm')
+          : 'just created'}
+      </small>
       <br />
       {text}
-      <Author color={color}>{author}</Author>
+      <FlexBetween>
+        <Author color={color}>{author}</Author>
+        <TrashButton onClick={onDelete} />
+      </FlexBetween>
     </Card>
   );
 }
@@ -16,7 +24,7 @@ export default function Entry({ text, author, color, createdAt, onDelete }) {
 const Card = styled.section`
   display: grid;
   align-content: space-between;
-  padding: 20px;
+  padding: 12px;
   max-width: 400px;
   border: 1px solid #ddd;
   height: 100%;
@@ -24,9 +32,26 @@ const Card = styled.section`
     rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 `;
 
+const FlexBetween = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const TrashButton = styled.button.attrs(() => ({
+  children: <BiTrash />,
+}))`
+  all: unset;
+  width: min-content;
+  padding-top: 2px;
+  font-size: 1.2rem;
+  &:focus:focus-visible {
+    outline: 2px dashed;
+  }
+`;
+
 const Author = styled.p`
   margin: 0;
-  text-transform: uppercase;
   font-size: 1rem;
   color: ${p => p.color ?? '#888'};
 `;
