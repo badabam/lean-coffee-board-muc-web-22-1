@@ -1,12 +1,13 @@
-import styled from 'styled-components';
 import dayjs from 'dayjs';
 import { IconContext } from 'react-icons';
-import { BiTrash } from 'react-icons/bi';
+import { AiOutlineClockCircle, AiOutlineDelete } from 'react-icons/ai';
+import styled from 'styled-components';
 
 export default function Entry({ text, author, color, createdAt, onDelete }) {
   return (
     <Card>
       <small>
+        <AiOutlineClockCircle style={{ verticalAlign: 'bottom' }} />{' '}
         {createdAt
           ? dayjs(createdAt).format('DD.MM.YYYY HH:mm')
           : 'just created'}
@@ -14,7 +15,7 @@ export default function Entry({ text, author, color, createdAt, onDelete }) {
       <br />
       {text}
       <FlexBetween>
-        <Author color={color}>{author}</Author>
+        <Author color={color}>— {author}</Author>
         <TrashButton onClick={onDelete} />
       </FlexBetween>
     </Card>
@@ -39,12 +40,17 @@ const FlexBetween = styled.div`
 `;
 
 const TrashButton = styled.button.attrs(() => ({
-  children: <BiTrash />,
+  children: <AiOutlineDelete />,
 }))`
-  all: unset;
+  border: none;
+  background: transparent;
   width: min-content;
   padding-top: 2px;
   font-size: 1.2rem;
+  &:hover {
+    color: crimson;
+  }
+
   &:focus:focus-visible {
     outline: 2px dashed;
   }
@@ -53,5 +59,5 @@ const TrashButton = styled.button.attrs(() => ({
 const Author = styled.p`
   margin: 0;
   font-size: 1rem;
-  color: ${p => p.color ?? '#888'};
+  color: ${p => p.color ?? '#555'};
 `;
