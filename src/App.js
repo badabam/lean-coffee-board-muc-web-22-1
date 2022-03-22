@@ -28,7 +28,15 @@ export default function App() {
           <EntryList role="list">
             {entries
               ? entries.map(
-                  ({ text, author, color, createdAt, _id, tempId }) => (
+                  ({
+                    text,
+                    author,
+                    color,
+                    createdAt,
+                    isChecked,
+                    _id,
+                    tempId,
+                  }) => (
                     <li key={_id ?? tempId}>
                       <Entry
                         _id={_id}
@@ -37,6 +45,8 @@ export default function App() {
                         color={color}
                         createdAt={createdAt}
                         onDelete={() => handleDelete(_id)}
+                        isChecked={isChecked}
+                        onCheck={() => handleCheck(_id)}
                       />
                     </li>
                   )
@@ -86,6 +96,17 @@ export default function App() {
       body: JSON.stringify({ _id }),
     });
 
+    mutateEntries();
+  }
+
+  async function handleCheck(_id) {
+    await fetch('/api/entries/mark-as-done', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ _id }),
+    });
     mutateEntries();
   }
 }

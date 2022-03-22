@@ -1,5 +1,5 @@
-import dbConnect from '../lib/dbConnect.mjs';
-import Entry from '../models/Entry.mjs';
+import dbConnect from '../../lib/dbConnect.mjs';
+import Entry from '../../models/Entry.mjs';
 
 await dbConnect();
 console.log('Connected to DB');
