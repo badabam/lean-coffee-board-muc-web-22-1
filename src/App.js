@@ -100,6 +100,13 @@ export default function App() {
   }
 
   async function handleCheck(_id) {
+    mutateEntries(
+      entries.map(entry =>
+        entry._id === _id ? { ...entry, isChecked: !entry.isChecked } : entry
+      ),
+      false
+    );
+
     await fetch('/api/entries/mark-as-done', {
       method: 'PATCH',
       headers: {
