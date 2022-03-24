@@ -1,20 +1,14 @@
 @baseUrl = http://localhost:3000/api
 
-### GET /api - 404
-GET {{baseUrl}}
-
-### GET /api/does-not-exist - 404
-GET {{baseUrl}}/does-not-exist
-
-### GET ALL entries
+### GET ALL ENTRIES
 GET {{baseUrl}}/entries
 
-###
+### CREATE NEW ENTRY
 POST {{baseUrl}}/entries
 Content-Type: application/json
 
 {
-  "text": "Some text",
+  "text": "delete me",
   "author": "Jane"
 }
 
@@ -23,7 +17,7 @@ PATCH {{baseUrl}}/entries/mark-as-done
 Content-Type: application/json
 
 {
-  "_id": "6239d3bb7b83e64ce6a997ff"
+  "_id": "623c6c96d5c80882037b6351"
 }
 
 ### DELETE
@@ -32,5 +26,11 @@ DELETE {{baseUrl}}/entries
 Content-Type: application/json
 
 {
-  "_id": "6238504239de179b59e7deb2"
+  "_id": "623c6c96d5c80882037b6351"
 }
+
+### ERROR: GET /api - 404
+GET {{baseUrl}}
+
+### ERROR: GET non existing path - 404
+GET {{baseUrl}}/does-not-exist
