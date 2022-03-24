@@ -4,11 +4,11 @@ import useSWR from 'swr';
 import Entry from './components/Entry';
 import EntryForm from './components/EntryForm';
 import LoginForm from './components/LoginForm.js';
-
+import { useLocalStorage } from 'beautiful-react-hooks';
 const fetcher = (...args) => fetch(...args).then(res => res.json());
 
 export default function App() {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useLocalStorage('user', {});
 
   const {
     data: entries,
