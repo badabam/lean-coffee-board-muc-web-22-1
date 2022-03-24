@@ -10,7 +10,7 @@ export default function App() {
   const [user, setUser] = useLocalStorage('user', {});
 
   const {
-    data: entries = [],
+    data: entries,
     error: entriesError,
     mutate: mutateEntries,
   } = useSWR('/api/entries', fetcher, {
@@ -18,39 +18,28 @@ export default function App() {
   });
 
   if (entriesError) return <h1>Sorry, could not fetch.</h1>;
+  if (!entries && !entriesError) return <p>... loading ...</p>;
 
   const undoneEntries = entries.filter(e => !e.isChecked);
   const doneEntries = entries.filter(e => e.isChecked);
-  const isEmpty = !undoneEntries.length && !doneEntries.length;
   const isAllDone = undoneEntries.length === 0 && doneEntries.length > 0;
+
+  const EmptyState = () =>
+    entries.length === 0 && <p>Please add some cards via the input below.</p>;
+
+  const DoneState = () => isAllDone && <p>Everything is done. Yay!</p>;
 
   return (
     <>
       {user.name ? (
         <BoardGrid>
-          <h1>Lean Coffee Board</h1>
-          {isEmpty && <p>Please create some cards via the input below.</p>}
-
-          {isAllDone ? (
-            <p>Everything is done. Yay!</p>
-          ) : (
-            <EntryList
-              entries={undoneEntries}
-              onDelete={handleDelete}
-              onCheck={handleCheck}
-            />
-          )}
-
-          {!!doneEntries.length && (
-            <>
-              <h2>Done:</h2>
-              <EntryList
-                entries={doneEntries}
-                onDelete={handleDelete}
-                onCheck={handleCheck}
-              />
-            </>
-          )}
+          <EmptyState />
+          <DoneState />
+          <EntryList
+            entries={[...undoneEntries, ...doneEntries]}
+            onDelete={handleDelete}
+            onCheck={handleCheck}
+          />
 
           <EntryForm onSubmit={handleNewEntry} />
         </BoardGrid>
@@ -126,6 +115,6 @@ const LoginGrid = styled.div`
 const BoardGrid = styled.div`
   display: grid;
   padding: 0 20px 12px;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: 1fr auto;
   height: 100vh;
 `;

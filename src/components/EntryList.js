@@ -21,7 +21,7 @@ export default function EntryList({ entries, onDelete, onCheck }) {
               </li>
             )
           )
-        : '... loading! ...'}
+        : '... loading ...'}
     </StyledList>
   );
 }
@@ -29,9 +29,9 @@ export default function EntryList({ entries, onDelete, onCheck }) {
 const StyledList = styled.ul`
   display: grid;
   gap: 20px;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-auto-rows: 100px;
   list-style: none;
-  padding: 0;
   overflow-y: auto;
+  padding: 20px;
 `;

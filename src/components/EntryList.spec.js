@@ -14,6 +14,13 @@ describe('EntryList', () => {
         color: 'hotpink',
         createdAt: '2022-03-24T11:11:11',
       },
+      {
+        _id: 'id_456',
+        text: 'This is some other text, which is a bit longer',
+        author: 'John Doe',
+        color: 'skyblue',
+        createdAt: '2022-03-24T12:12:12',
+      },
     ].slice();
   });
 
@@ -33,7 +40,7 @@ describe('EntryList', () => {
     const callback = jest.fn();
     render(<EntryList onCheck={callback} entries={entries} />);
 
-    const checkbox = screen.getByLabelText('Mark as done');
+    const checkbox = screen.getAllByLabelText('Mark as done')[0];
     userEvent.click(checkbox);
     expect(callback).toHaveBeenCalled();
   });
@@ -42,7 +49,7 @@ describe('EntryList', () => {
     const callback = jest.fn();
     render(<EntryList onDelete={callback} entries={entries} />);
 
-    const checkbox = screen.getByRole('button', { name: 'Delete' });
+    const checkbox = screen.getAllByRole('button', { name: 'Delete' })[0];
     userEvent.click(checkbox);
     expect(callback).toHaveBeenCalled();
   });
