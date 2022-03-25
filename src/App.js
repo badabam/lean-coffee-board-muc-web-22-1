@@ -22,27 +22,30 @@ export default function App() {
 
   const undoneEntries = entries.filter(e => !e.isChecked);
   const doneEntries = entries.filter(e => e.isChecked);
-  const isAllDone = undoneEntries.length === 0 && doneEntries.length > 0;
 
   const EmptyState = () =>
     entries.length === 0 && <p>Please add some cards via the input below.</p>;
 
+  const isAllDone = undoneEntries.length === 0 && doneEntries.length > 0;
   const DoneState = () => isAllDone && <p>Everything is done. Yay!</p>;
 
   return (
     <>
-      {user.name ? (
-        <BoardGrid>
-          <EmptyState />
-          <DoneState />
-          <EntryList
-            entries={[...undoneEntries, ...doneEntries]}
-            onDelete={handleDelete}
-            onCheck={handleCheck}
-          />
+      {user?.name ? (
+        <>
+          <LogoutButton onClick={() => setUser()} />
+          <BoardGrid>
+            <EmptyState />
+            <DoneState />
+            <EntryList
+              entries={[...undoneEntries, ...doneEntries]}
+              onDelete={handleDelete}
+              onCheck={handleCheck}
+            />
 
-          <EntryForm onSubmit={handleNewEntry} />
-        </BoardGrid>
+            <EntryForm onSubmit={handleNewEntry} />
+          </BoardGrid>
+        </>
       ) : (
         <LoginGrid>
           <LoginForm onLogin={setUser} />
@@ -105,6 +108,17 @@ export default function App() {
     mutateEntries();
   }
 }
+
+const LogoutButton = styled.button.attrs(() => ({ children: 'Logout' }))`
+  border: none;
+  background: transparent;
+  text-decoration: underline;
+  text-underline-position: below;
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  color: #666;
+`;
 
 const LoginGrid = styled.div`
   display: grid;
